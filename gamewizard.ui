@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GameWizard</class>
+ <widget class="QWizard" name="GameWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>475</width>
+    <height>373</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>New Game</string>
+  </property>
+  <widget class="ImagesPage" name="imagesPage"/>
+  <widget class="PlayersPage" name="playersPage"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImagesPage</class>
+   <extends>QWizardPage</extends>
+   <header>imagespage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlayersPage</class>
+   <extends>QWizardPage</extends>
+   <header>playerspage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
