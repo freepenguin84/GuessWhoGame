@@ -33,10 +33,7 @@ private:
 signals:
     void guessed(int player);
 private slots:
-    void on_nextButton_clicked();
-    void on_revealButton_clicked();
-    void on_startButton_clicked();
-    void on_stopButton_clicked();
+
     void on_actionNewGame_triggered();
     void on_actionFullscreen_triggered();
     void on_actionSettings_triggered();

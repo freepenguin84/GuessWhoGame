@@ -4,22 +4,12 @@
 #include <QDialog>
 #include "pixelator.h"
 #include "player.h"
-#include "gamewizard.h"
 #include "guessdialog.h"
+#include "ui_gamewizard.h"
 
 Game::Game(const Configuration &configuration, QObject *parent) : QObject(parent), config(configuration)
 {
     connect(&timer, &QTimer::timeout, this, &Game::refreshImage);
-}
-
-void Game::setFileNames(QStringList value)
-{
-    fileNames = value;
-}
-
-void Game::addPlayer(QString name)
-{
-    players.append(new Player(name));
 }
 
 QPixmap Game::getScaledImage(const int index) const
@@ -65,16 +55,17 @@ void Game::revealImage()
 
 void Game::showWizard()
 {
-    GameWizard gameWizard;
+    QWizard gameWizard;
+    wizardUi = new Ui::GameWizard;
+    wizardUi->setupUi(&gameWizard);
     if (gameWizard.exec()) {
-        QStringList fileNames = gameWizard.field("imageFiles").value<QStringList>();
-        setFileNames(fileNames);
-        for (int i = 0; i < gameWizard.playerCount(); ++i) {
-            addPlayer(gameWizard.field(QString("player") + QString::number(i)).toString());
+        fileNames = gameWizard.field("imageFiles").value<QStringList>();
+        for (int i = 0; i < wizardUi->playersPage->getPlayerCount(); ++i) {
+            players += new Player(gameWizard.field(QString("player") + QString::number(i)).toString());
         }
         emit wizardCompleted();
     }
-
+    delete wizardUi;
 }
 
 void Game::showGuessDialog(int player)

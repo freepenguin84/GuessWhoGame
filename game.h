@@ -8,6 +8,10 @@
 #include <QSettings>
 #include "configuration.h"
 
+namespace Ui {
+class GameWizard;
+}
+
 class Player;
 
 class Game : public QObject
@@ -15,18 +19,16 @@ class Game : public QObject
     Q_OBJECT
 public:
     explicit Game(const Configuration &configuration, QObject *parent = 0);
-    void setFileNames(QStringList value);
-    void addPlayer(QString name);
     QPixmap getScaledImage(const int index) const;
     void start();
+    QList<Player *> getPlayers() const;
+
+public slots:
     void nextImage();
     void refreshImage();
     void startSlideshow();
     void stopSlideshow();
     void revealImage();
-    QList<Player *> getPlayers() const;
-
-public slots:
     void showWizard();
     void showGuessDialog(int player);
 signals:
@@ -40,6 +42,7 @@ private:
     QStringList fileNames;
     QList<Player*> players;
     const Configuration &config;
+    Ui::GameWizard *wizardUi;
 };
 
 #endif // GAME_H

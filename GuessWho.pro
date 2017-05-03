@@ -29,7 +29,6 @@ SOURCES += main.cpp\
     guess.cpp \
     pixelator.cpp \
     settingsdialog.cpp \
-    gamewizard.cpp \
     configuration.cpp \
     imagespage.cpp \
     playerspage.cpp \
@@ -41,7 +40,6 @@ HEADERS  += guesswho.h \
     guess.h \
     pixelator.h \
     settingsdialog.h \
-    gamewizard.h \
     configuration.h \
     imagespage.h \
     playerspage.h \

@@ -32,7 +32,7 @@
          <x>0</x>
          <y>0</y>
          <width>718</width>
-         <height>435</height>
+         <height>353</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -56,7 +56,50 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="playerButtons"/>
+     <widget class="QLabel" name="playersLabel">
+      <property name="text">
+       <string>Players</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="playerButtons">
+      <item>
+       <widget class="QPushButton" name="player1Button">
+        <property name="text">
+         <string>Player 1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="player2Button">
+        <property name="text">
+         <string>Player 2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="player3Button">
+        <property name="text">
+         <string>Player 3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="player4Button">
+        <property name="text">
+         <string>Player 4</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="imagesLabel">
+      <property name="text">
+       <string>Images</string>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="imageButtons">

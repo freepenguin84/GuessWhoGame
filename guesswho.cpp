@@ -5,18 +5,18 @@
 
 #include <QSettings>
 #include <QCloseEvent>
-#include <QPushButton>
+#include <QHBoxLayout>
 
 GuessWho::GuessWho(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GuessWho)
-    //, game(new Game(config, parent))
 {
     ui->setupUi(this);
     QCoreApplication::setOrganizationName("linuxrelated");
     QCoreApplication::setOrganizationDomain("linuxrelated.de");
     QCoreApplication::setApplicationName("GuessWho");
     readSettings();
+    QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
 }
 
 GuessWho::~GuessWho()
@@ -32,14 +32,12 @@ void GuessWho::refreshImage(const QPixmap &image)
 
 void GuessWho::showPlayerButtons()
 {
-    for (int i = 0; i < game->getPlayers().size(); ++i) {
-        QPushButton *playerButton = new QPushButton(this);
-        Player* player = game->getPlayers()[i];
-        playerButton->setText(player->getName());
-        ui->playerButtons->addWidget(playerButton);
-        connect(playerButton, &QPushButton::clicked, this, [i, playerButton, this]() {
+    for (int i = 0; i < ui->playerButtons->count(); ++i) {
+        QPushButton* button = qobject_cast<QPushButton*>(ui->playerButtons->itemAt(i)->widget());
+        connect(button, &QPushButton::clicked, this, [i, this]() {
             emit guessed(i);
         });
+        button->setEnabled(i < game->getPlayers().size());
     }
     game->start();
 }
@@ -70,35 +68,22 @@ void GuessWho::writeSettings()
     config.writeSettings(settings);
 }
 
-void GuessWho::on_nextButton_clicked()
-{
-    game->refreshImage();
-}
-
-void GuessWho::on_revealButton_clicked()
-{
-    game->revealImage();
-}
-
-void GuessWho::on_startButton_clicked()
-{
-    game->startSlideshow();
-}
-
-void GuessWho::on_stopButton_clicked()
-{
-    game->stopSlideshow();
-}
-
 void GuessWho::on_actionNewGame_triggered()
 {
     if (game) {
         delete game;
     }
     game = new Game(config, parent());
+
+    connect(ui->nextButton, &QPushButton::clicked, game, &Game::refreshImage);
+    connect(ui->revealButton, &QPushButton::clicked, game, &Game::revealImage);
+    connect(ui->startButton, &QPushButton::clicked, game, &Game::startSlideshow);
+    connect(ui->stopButton, &QPushButton::clicked, game, &Game::stopSlideshow);
+
     connect(game, &Game::imageChanged, this, &GuessWho::refreshImage);
     connect(game, &Game::wizardCompleted, this, &GuessWho::showPlayerButtons);
     connect(this, &GuessWho::guessed, game, &Game::showGuessDialog);
+
     game->showWizard();
 }
 
