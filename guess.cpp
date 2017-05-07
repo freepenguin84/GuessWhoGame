@@ -6,3 +6,8 @@ Guess::Guess(int personsGuessed, int score, QString fileName)
     this->score = score;
     this->fileName = fileName;
 }
+
+int Guess::getScore()
+{
+    return score * personsGuessed;
+}

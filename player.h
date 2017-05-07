@@ -12,6 +12,7 @@ private:
     QList<Guess*> guesses;
 public:
     void addGuess(int personsGuessed, int score, QString fileName);
+    int getScore();
     QString getName() const;
     void setName(const QString &value);
 };

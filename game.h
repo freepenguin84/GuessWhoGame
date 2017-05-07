@@ -22,7 +22,6 @@ public:
     QPixmap getScaledImage(const int index) const;
     void start();
     QList<Player *> getPlayers() const;
-
 public slots:
     void nextImage();
     void refreshImage();
@@ -34,9 +33,11 @@ public slots:
 signals:
     void imageChanged(const QPixmap& pixmap);
     void wizardCompleted();
+    void guessCompleted(int playerIndex);
 private:
     int currentImageIndex = 0;
     int pixelCountDown = 20;
+    int currentScore = 0;
     QTimer timer;
     QPixmap currentImage;
     QStringList fileNames;

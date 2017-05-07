@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>730</width>
-    <height>550</height>
+    <width>1038</width>
+    <height>742</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,124 +19,119 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>718</width>
-         <height>353</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="imageLabel">
-          <property name="styleSheet">
-           <string notr="true">QLabel {
+     <layout class="QHBoxLayout" name="imageLayout">
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1006</width>
+           <height>541</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="imageLabel">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
 	background-color : black;
 }</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="playersLabel">
-      <property name="text">
-       <string>Players</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="playerButtons">
-      <item>
-       <widget class="QPushButton" name="player1Button">
-        <property name="text">
-         <string>Player 1</string>
-        </property>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="player2Button">
-        <property name="text">
-         <string>Player 2</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="player3Button">
-        <property name="text">
-         <string>Player 3</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="player4Button">
-        <property name="text">
-         <string>Player 4</string>
-        </property>
+       <widget class="QWidget" name="infoWidget" native="true">
+        <layout class="QVBoxLayout" name="infoLayout"/>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="imagesLabel">
-      <property name="text">
-       <string>Images</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="imageButtons">
+     <layout class="QVBoxLayout" name="controlLayout">
       <item>
-       <widget class="QPushButton" name="nextButton">
+       <widget class="QLabel" name="playersLabel">
         <property name="text">
-         <string>Next</string>
+         <string>Players</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="startButton">
+       <layout class="QHBoxLayout" name="playerButtons">
+        <item>
+         <widget class="QPushButton" name="showScoreButton">
+          <property name="text">
+           <string>Show Score</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="imagesLabel">
         <property name="text">
-         <string>Start</string>
+         <string>Images</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="stopButton">
-        <property name="text">
-         <string>Stop</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="revealButton">
-        <property name="text">
-         <string>Reveal!</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="jumpToButton">
-        <property name="text">
-         <string>Jump to:</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="imageButtons">
+        <item>
+         <widget class="QPushButton" name="nextButton">
+          <property name="text">
+           <string>Next</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="revealButton">
+          <property name="text">
+           <string>Reveal!</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="startButton">
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="stopButton">
+          <property name="text">
+           <string>Stop</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="jumpToButton">
+          <property name="text">
+           <string>Jump to:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -147,7 +142,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>730</width>
+     <width>1038</width>
      <height>30</height>
     </rect>
    </property>

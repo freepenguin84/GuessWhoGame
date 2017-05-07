@@ -6,6 +6,7 @@
 class Guess {
 public:
     Guess(int personsGuessed, int score, QString fileName);
+    int getScore();
 private:
     int personsGuessed;
     int score;

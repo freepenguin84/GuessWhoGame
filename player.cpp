@@ -20,3 +20,12 @@ void Player::addGuess(int personsGuessed, int score, QString fileName)
 {
     guesses.append(new Guess(personsGuessed, score, fileName));
 }
+
+int Player::getScore()
+{
+    int result = 0;
+    for (Guess* g : guesses) {
+        result += g->getScore();
+    }
+    return result;
+}

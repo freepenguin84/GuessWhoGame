@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     imagespage.cpp \
     playerspage.cpp \
     game.cpp \
-    guessdialog.cpp
+    guessdialog.cpp \
+    playerinfo.cpp
 
 HEADERS  += guesswho.h \
     player.h \
@@ -44,12 +45,13 @@ HEADERS  += guesswho.h \
     imagespage.h \
     playerspage.h \
     game.h \
-    guessdialog.h
+    guessdialog.h \
+    playerinfo.h
 
 FORMS    += guesswho.ui \
     settingsdialog.ui \
     gamewizard.ui \
     imagespage.ui \
-    playerrow.ui \
     playerspage.ui \
-    guessdialog.ui
+    guessdialog.ui \
+    playerinfo.ui

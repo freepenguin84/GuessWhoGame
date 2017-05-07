@@ -49,6 +49,7 @@ void Game::stopSlideshow()
 void Game::revealImage()
 {
     emit imageChanged(currentImage);
+    currentScore = pixelCountDown + 2;
     pixelCountDown = 20;
     nextImage();
 }
@@ -70,10 +71,11 @@ void Game::showWizard()
 
 void Game::showGuessDialog(int player)
 {
-    int score = pixelCountDown + 2;
-    GuessDialog dialog(score);
+    GuessDialog dialog(currentScore);
     if (dialog.exec()) {
-        players[player]->addGuess(dialog.getMulti(), score, "");
+        players[player]->addGuess(dialog.getMulti(), currentScore, "");
+        emit guessCompleted(player);
+        currentScore = 0;
     }
 }
 

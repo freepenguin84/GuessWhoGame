@@ -2,21 +2,24 @@
 #include "ui_guesswho.h"
 #include "game.h"
 #include "player.h"
+#include "playerinfo.h"
 
 #include <QSettings>
 #include <QCloseEvent>
 #include <QHBoxLayout>
+#include <QPushButton>
 
 GuessWho::GuessWho(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GuessWho)
 {
     ui->setupUi(this);
+    ui->infoWidget->setVisible(false);
     QCoreApplication::setOrganizationName("linuxrelated");
     QCoreApplication::setOrganizationDomain("linuxrelated.de");
     QCoreApplication::setApplicationName("GuessWho");
     readSettings();
-    QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
+    //QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
 }
 
 GuessWho::~GuessWho()
@@ -30,14 +33,30 @@ void GuessWho::refreshImage(const QPixmap &image)
     ui->imageLabel->setPixmap(image);
 }
 
+void GuessWho::updateInfo(const int playerIndex)
+{
+    infos[playerIndex]->update();
+}
+
 void GuessWho::showPlayerButtons()
 {
-    for (int i = 0; i < ui->playerButtons->count(); ++i) {
-        QPushButton* button = qobject_cast<QPushButton*>(ui->playerButtons->itemAt(i)->widget());
+    auto players = game->getPlayers();
+    for (int i = 0; i < players.size(); ++i) {
+        // buttons
+        auto button = new QPushButton(players[i]->getName(), this);
+        buttons += button;
+        ui->playerButtons->insertWidget(i, button);
         connect(button, &QPushButton::clicked, this, [i, this]() {
             emit guessed(i);
         });
-        button->setEnabled(i < game->getPlayers().size());
+
+        // infos
+        auto info = new PlayerInfo(players[i], this);
+        info->update();
+        infos += info;
+        auto layout = qobject_cast<QVBoxLayout*>(ui->infoWidget->layout());
+        layout->addWidget(info);
+        layout->addStretch();
     }
     game->start();
 }
@@ -68,13 +87,8 @@ void GuessWho::writeSettings()
     config.writeSettings(settings);
 }
 
-void GuessWho::on_actionNewGame_triggered()
+void GuessWho::connectUI()
 {
-    if (game) {
-        delete game;
-    }
-    game = new Game(config, parent());
-
     connect(ui->nextButton, &QPushButton::clicked, game, &Game::refreshImage);
     connect(ui->revealButton, &QPushButton::clicked, game, &Game::revealImage);
     connect(ui->startButton, &QPushButton::clicked, game, &Game::startSlideshow);
@@ -82,18 +96,42 @@ void GuessWho::on_actionNewGame_triggered()
 
     connect(game, &Game::imageChanged, this, &GuessWho::refreshImage);
     connect(game, &Game::wizardCompleted, this, &GuessWho::showPlayerButtons);
+    connect(game, &Game::guessCompleted, this, &GuessWho::updateInfo);
     connect(this, &GuessWho::guessed, game, &Game::showGuessDialog);
+}
 
+void GuessWho::togglePlayerButtons(bool enabled)
+{
+    for (auto button : buttons) {
+        button->setEnabled(enabled);
+    }
+}
+
+void GuessWho::on_actionNewGame_triggered()
+{
+    if (game) {
+        delete game;
+    }
+    game = new Game(config, parent());
+    connectUI();
     game->showWizard();
 }
 
 void GuessWho::on_actionFullscreen_triggered()
 {
-    ui->imageLabel->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    ui->imageLabel->showFullScreen();
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    showFullScreen();
 }
 
 void GuessWho::on_actionSettings_triggered()
 {
     config.showDialog();
+}
+
+void GuessWho::on_showScoreButton_toggled()
+{
+    auto layout = ui->imageLayout;
+    QLayoutItem* item = layout->itemAt(1);
+    auto widget = item->widget();
+    widget->setVisible(ui->showScoreButton->isChecked());
 }
