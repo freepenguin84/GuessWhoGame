@@ -17,7 +17,7 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="centralWidgetLayout">
     <item>
      <layout class="QHBoxLayout" name="imageLayout">
       <item>
@@ -37,7 +37,7 @@
            <height>541</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="scrollAreaLayout">
           <item>
            <widget class="QLabel" name="imageLabel">
             <property name="styleSheet">
@@ -65,75 +65,89 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="controlLayout">
-      <item>
-       <widget class="QLabel" name="playersLabel">
-        <property name="text">
-         <string>Players</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="playerButtons">
-        <item>
-         <widget class="QPushButton" name="showScoreButton">
-          <property name="text">
-           <string>Show Score</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="imagesLabel">
-        <property name="text">
-         <string>Images</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="imageButtons">
-        <item>
-         <widget class="QPushButton" name="nextButton">
-          <property name="text">
-           <string>Next</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="revealButton">
-          <property name="text">
-           <string>Reveal!</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="startButton">
-          <property name="text">
-           <string>Start</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="stopButton">
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="jumpToButton">
-          <property name="text">
-           <string>Jump to:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <widget class="QWidget" name="controlWidget" native="true">
+      <layout class="QVBoxLayout" name="controlLayout">
+       <item>
+        <widget class="QLabel" name="playersLabel">
+         <property name="text">
+          <string>Playe&amp;rs</string>
+         </property>
+         <property name="buddy">
+          <cstring>showScoreButton</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="playerButtons">
+         <item>
+          <widget class="QPushButton" name="showScoreButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Show Score</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="imagesLabel">
+         <property name="text">
+          <string>I&amp;mages</string>
+         </property>
+         <property name="buddy">
+          <cstring>nextButton</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="imageButtons">
+         <item>
+          <widget class="QPushButton" name="nextButton">
+           <property name="text">
+            <string>Next</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="revealButton">
+           <property name="text">
+            <string>Reveal!</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="startButton">
+           <property name="text">
+            <string>Start</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="stopButton">
+           <property name="text">
+            <string>Stop</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="jumpToButton">
+           <property name="text">
+            <string>Jump to:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -153,6 +167,7 @@
     <addaction name="actionNewGame"/>
     <addaction name="actionSettings"/>
     <addaction name="actionFullscreen"/>
+    <addaction name="actionToggleControls"/>
    </widget>
    <addaction name="menuDatei"/>
   </widget>
@@ -170,6 +185,14 @@
   <action name="actionFullscreen">
    <property name="text">
     <string>&amp;Fullscreen</string>
+   </property>
+  </action>
+  <action name="actionToggleControls">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toggle Controls</string>
    </property>
   </action>
  </widget>

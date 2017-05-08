@@ -9,7 +9,7 @@
 
 Game::Game(const Configuration &configuration, QObject *parent) : QObject(parent), config(configuration)
 {
-    connect(&timer, &QTimer::timeout, this, &Game::refreshImage);
+    connect(&timer, &QTimer::timeout, this, &Game::showNextPixelated);
 }
 
 QPixmap Game::getScaledImage(const int index) const
@@ -23,10 +23,11 @@ QPixmap Game::getScaledImage(const int index) const
 void Game::start()
 {
     currentImage = getScaledImage(0);
-    refreshImage();
+    showNextPixelated();
+    emit uiChanged(false);
 }
 
-void Game::refreshImage()
+void Game::showNextPixelated()
 {
     if (pixelCountDown >= 0) {
         QPixmap pixelated = gw::Pixelator::doPixelate(currentImage, config.getSizes()[pixelCountDown--]);
@@ -38,7 +39,7 @@ void Game::refreshImage()
 
 void Game::startSlideshow()
 {
-    //timer.start(duration);
+    timer.start(config.getDuration());
 }
 
 void Game::stopSlideshow()
@@ -49,9 +50,10 @@ void Game::stopSlideshow()
 void Game::revealImage()
 {
     emit imageChanged(currentImage);
+    emit uiChanged(true);
     currentScore = pixelCountDown + 2;
     pixelCountDown = 20;
-    nextImage();
+    loadNextImage();
 }
 
 void Game::showWizard()
@@ -59,6 +61,8 @@ void Game::showWizard()
     QWizard gameWizard;
     wizardUi = new Ui::GameWizard;
     wizardUi->setupUi(&gameWizard);
+    wizardUi->imagesPage->setTitle("Images");
+    wizardUi->playersPage->setTitle("Players");
     if (gameWizard.exec()) {
         fileNames = gameWizard.field("imageFiles").value<QStringList>();
         for (int i = 0; i < wizardUi->playersPage->getPlayerCount(); ++i) {
@@ -75,6 +79,7 @@ void Game::showGuessDialog(int player)
     if (dialog.exec()) {
         players[player]->addGuess(dialog.getMulti(), currentScore, "");
         emit guessCompleted(player);
+        emit uiChanged(false);
         currentScore = 0;
     }
 }
@@ -84,12 +89,12 @@ QList<Player *> Game::getPlayers() const
     return players;
 }
 
-void Game::nextImage()
+void Game::loadNextImage()
 {
     if (++currentImageIndex < fileNames.size()) {
         currentImage = getScaledImage(currentImageIndex);
     } else {
         currentImageIndex = -1;
-        nextImage();
+        loadNextImage();
     }
 }

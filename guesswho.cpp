@@ -19,6 +19,7 @@ GuessWho::GuessWho(QWidget *parent) :
     QCoreApplication::setOrganizationDomain("linuxrelated.de");
     QCoreApplication::setApplicationName("GuessWho");
     readSettings();
+    on_actionToggleControls_toggled(false);
     //QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
 }
 
@@ -36,6 +37,7 @@ void GuessWho::refreshImage(const QPixmap &image)
 void GuessWho::updateInfo(const int playerIndex)
 {
     infos[playerIndex]->update();
+    togglePlayerButtons(false);
 }
 
 void GuessWho::showPlayerButtons()
@@ -59,6 +61,7 @@ void GuessWho::showPlayerButtons()
         layout->addStretch();
     }
     game->start();
+    on_actionToggleControls_toggled(true);
 }
 
 void GuessWho::closeEvent(QCloseEvent *event)
@@ -89,7 +92,7 @@ void GuessWho::writeSettings()
 
 void GuessWho::connectUI()
 {
-    connect(ui->nextButton, &QPushButton::clicked, game, &Game::refreshImage);
+    connect(ui->nextButton, &QPushButton::clicked, game, &Game::showNextPixelated);
     connect(ui->revealButton, &QPushButton::clicked, game, &Game::revealImage);
     connect(ui->startButton, &QPushButton::clicked, game, &Game::startSlideshow);
     connect(ui->stopButton, &QPushButton::clicked, game, &Game::stopSlideshow);
@@ -97,6 +100,7 @@ void GuessWho::connectUI()
     connect(game, &Game::imageChanged, this, &GuessWho::refreshImage);
     connect(game, &Game::wizardCompleted, this, &GuessWho::showPlayerButtons);
     connect(game, &Game::guessCompleted, this, &GuessWho::updateInfo);
+    connect(game, &Game::uiChanged, this, &GuessWho::togglePlayerButtons);
     connect(this, &GuessWho::guessed, game, &Game::showGuessDialog);
 }
 
@@ -134,4 +138,9 @@ void GuessWho::on_showScoreButton_toggled()
     QLayoutItem* item = layout->itemAt(1);
     auto widget = item->widget();
     widget->setVisible(ui->showScoreButton->isChecked());
+}
+
+void GuessWho::on_actionToggleControls_toggled(bool checked)
+{
+    ui->controlWidget->setVisible(checked);
 }

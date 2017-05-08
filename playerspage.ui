@@ -17,7 +17,7 @@
    <string>P&amp;layers</string>
   </property>
   <property name="subTitle">
-   <string>Add players to the game</string>
+   <string>Add up to 4 players to the game</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

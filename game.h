@@ -13,6 +13,7 @@ class GameWizard;
 }
 
 class Player;
+class QWizard;
 
 class Game : public QObject
 {
@@ -23,8 +24,8 @@ public:
     void start();
     QList<Player *> getPlayers() const;
 public slots:
-    void nextImage();
-    void refreshImage();
+    void loadNextImage();
+    void showNextPixelated();
     void startSlideshow();
     void stopSlideshow();
     void revealImage();
@@ -34,6 +35,7 @@ signals:
     void imageChanged(const QPixmap& pixmap);
     void wizardCompleted();
     void guessCompleted(int playerIndex);
+    void uiChanged(bool enabled);
 private:
     int currentImageIndex = 0;
     int pixelCountDown = 20;

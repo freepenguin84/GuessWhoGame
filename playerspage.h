@@ -14,13 +14,11 @@ class PlayersPage : public QWizardPage
 public:
     explicit PlayersPage(QWidget *parent = 0);
     ~PlayersPage();
-
-    void initializePage();
     int getPlayerCount() const;
-
 private:
     Ui::PlayersPage *ui;
     int playerCount = 0;
+    const int MAX_PLAYERS = 4;
     void addPlayerRow();
 private slots:
     void on_addPlayerButton_clicked();

@@ -9,16 +9,12 @@ PlayersPage::PlayersPage(QWidget *parent) :
     ui(new Ui::PlayersPage)
 {
     ui->setupUi(this);
+    addPlayerRow();
 }
 
 PlayersPage::~PlayersPage()
 {
     delete ui;
-}
-
-void PlayersPage::initializePage()
-{
-    addPlayerRow();
 }
 
 int PlayersPage::getPlayerCount() const
@@ -31,6 +27,9 @@ void PlayersPage::addPlayerRow()
     QLineEdit *playerEdit = new QLineEdit(this);
     ui->playersList->addRow(tr("&Name"), playerEdit);
     registerField(QString("player") + QString::number(playerCount++), playerEdit);
+    if (playerCount == MAX_PLAYERS) {
+        ui->addPlayerButton->setEnabled(false);
+    }
     playerEdit->setFocus();
 }
 

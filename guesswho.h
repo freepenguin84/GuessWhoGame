@@ -19,11 +19,6 @@ class GuessWho : public QMainWindow
 public:
     explicit GuessWho(QWidget *parent = 0);
     ~GuessWho();
-
-public slots:
-    void refreshImage(const QPixmap& image);
-    void updateInfo(const int playerIndex);
-    void showPlayerButtons();
 protected:
     void closeEvent(QCloseEvent *event) override;
 private:
@@ -39,10 +34,14 @@ signals:
     void guessed(int player);
 private slots:
     void togglePlayerButtons(bool enabled);
+    void refreshImage(const QPixmap& image);
+    void updateInfo(const int playerIndex);
+    void showPlayerButtons();
     void on_actionNewGame_triggered();
     void on_actionFullscreen_triggered();
     void on_actionSettings_triggered();
     void on_showScoreButton_toggled();
+    void on_actionToggleControls_toggled(bool checked);
 };
 
 #endif // GUESSWHO_H
