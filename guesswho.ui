@@ -34,16 +34,14 @@
            <x>0</x>
            <y>0</y>
            <width>1006</width>
-           <height>541</height>
+           <height>531</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="scrollAreaLayout">
           <item>
            <widget class="QLabel" name="imageLabel">
             <property name="styleSheet">
-             <string notr="true">QLabel {
-	background-color : black;
-}</string>
+             <string notr="true">QLabel {background-color : black;}</string>
             </property>
             <property name="text">
              <string/>
@@ -166,7 +164,6 @@
     </property>
     <addaction name="actionNewGame"/>
     <addaction name="actionSettings"/>
-    <addaction name="actionFullscreen"/>
     <addaction name="actionToggleControls"/>
    </widget>
    <addaction name="menuDatei"/>
@@ -192,7 +189,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Toggle Controls</string>
+    <string>&amp;Toggle Controls</string>
    </property>
   </action>
  </widget>

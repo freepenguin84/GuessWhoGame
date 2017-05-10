@@ -8,6 +8,7 @@
 #include <QCloseEvent>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QAction>
 
 GuessWho::GuessWho(QWidget *parent) :
     QMainWindow(parent),
@@ -19,8 +20,8 @@ GuessWho::GuessWho(QWidget *parent) :
     QCoreApplication::setOrganizationDomain("linuxrelated.de");
     QCoreApplication::setApplicationName("GuessWho");
     readSettings();
-    on_actionToggleControls_toggled(false);
-    //QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
+
+    QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
 }
 
 GuessWho::~GuessWho()
@@ -60,8 +61,8 @@ void GuessWho::showPlayerButtons()
         layout->addWidget(info);
         layout->addStretch();
     }
+    ui->actionToggleControls->setChecked(true);
     game->start();
-    on_actionToggleControls_toggled(true);
 }
 
 void GuessWho::closeEvent(QCloseEvent *event)
@@ -113,18 +114,13 @@ void GuessWho::togglePlayerButtons(bool enabled)
 
 void GuessWho::on_actionNewGame_triggered()
 {
+    ui->actionToggleControls->toggled(false);
     if (game) {
         delete game;
     }
     game = new Game(config, parent());
     connectUI();
     game->showWizard();
-}
-
-void GuessWho::on_actionFullscreen_triggered()
-{
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    showFullScreen();
 }
 
 void GuessWho::on_actionSettings_triggered()

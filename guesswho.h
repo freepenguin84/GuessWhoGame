@@ -38,7 +38,6 @@ private slots:
     void updateInfo(const int playerIndex);
     void showPlayerButtons();
     void on_actionNewGame_triggered();
-    void on_actionFullscreen_triggered();
     void on_actionSettings_triggered();
     void on_showScoreButton_toggled();
     void on_actionToggleControls_toggled(bool checked);
