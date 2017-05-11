@@ -20,8 +20,8 @@ GuessWho::GuessWho(QWidget *parent) :
     QCoreApplication::setOrganizationDomain("linuxrelated.de");
     QCoreApplication::setApplicationName("GuessWho");
     readSettings();
-
     QTimer::singleShot(0, this, &GuessWho::on_actionNewGame_triggered);
+    pixelCountLabel = new QLabel;
 }
 
 GuessWho::~GuessWho()
@@ -39,6 +39,7 @@ void GuessWho::updateInfo(const int playerIndex)
 {
     infos[playerIndex]->update();
     togglePlayerButtons(false);
+    on_nextButton_clicked();
 }
 
 void GuessWho::showPlayerButtons()
@@ -47,6 +48,7 @@ void GuessWho::showPlayerButtons()
     for (int i = 0; i < players.size(); ++i) {
         // buttons
         auto button = new QPushButton(players[i]->getName(), this);
+        button->setShortcut(tr("" + i + 1));
         buttons += button;
         ui->playerButtons->insertWidget(i, button);
         connect(button, &QPushButton::clicked, this, [i, this]() {
@@ -93,10 +95,7 @@ void GuessWho::writeSettings()
 
 void GuessWho::connectUI()
 {
-    connect(ui->nextButton, &QPushButton::clicked, game, &Game::showNextPixelated);
-    connect(ui->revealButton, &QPushButton::clicked, game, &Game::revealImage);
-    connect(ui->startButton, &QPushButton::clicked, game, &Game::startSlideshow);
-    connect(ui->stopButton, &QPushButton::clicked, game, &Game::stopSlideshow);
+    //connect(ui->revealButton, &QPushButton::clicked, game, &Game::revealImage);
 
     connect(game, &Game::imageChanged, this, &GuessWho::refreshImage);
     connect(game, &Game::wizardCompleted, this, &GuessWho::showPlayerButtons);
@@ -139,4 +138,33 @@ void GuessWho::on_showScoreButton_toggled()
 void GuessWho::on_actionToggleControls_toggled(bool checked)
 {
     ui->controlWidget->setVisible(checked);
+}
+
+void GuessWho::on_toggleShowButton_toggled()
+{
+    if (ui->toggleShowButton->isChecked()) {
+        game->startSlideshow();
+        togglePlayerButtons(false);
+        ui->toggleShowButton->setText(tr("Stop Slideshow"));
+        ui->nextButton->setEnabled(false);
+        ui->revealButton->setEnabled(false);
+    } else {
+        game->stopSlideshow();
+        ui->toggleShowButton->setText(tr("Start Slideshow"));
+        ui->nextButton->setEnabled(true);
+        ui->revealButton->setEnabled(true);
+    }
+}
+
+void GuessWho::on_nextButton_clicked()
+{
+    game->showNextPixelated();
+    togglePlayerButtons(false);
+    ui->revealButton->setEnabled(true);
+}
+
+void GuessWho::on_revealButton_clicked()
+{
+    game->revealImage();
+    ui->revealButton->setEnabled(false);
 }

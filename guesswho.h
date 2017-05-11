@@ -7,6 +7,7 @@
 class Game;
 class PlayerInfo;
 class QPushButton;
+class QLabel;
 
 namespace Ui {
 class GuessWho;
@@ -30,6 +31,7 @@ private:
     void readSettings();
     void writeSettings();
     void connectUI();
+    QLabel* pixelCountLabel;
 signals:
     void guessed(int player);
 private slots:
@@ -41,6 +43,9 @@ private slots:
     void on_actionSettings_triggered();
     void on_showScoreButton_toggled();
     void on_actionToggleControls_toggled(bool checked);
+    void on_toggleShowButton_toggled();
+    void on_nextButton_clicked();
+    void on_revealButton_clicked();
 };
 
 #endif // GUESSWHO_H

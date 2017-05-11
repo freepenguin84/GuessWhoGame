@@ -36,25 +36,35 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="explainLabel">
+     <property name="text">
+      <string>How many persons guessed right?</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="x1Button">
        <property name="text">
-        <string>1x</string>
+        <string>1 person</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="x2Button">
        <property name="text">
-        <string>2x</string>
+        <string>2 persons</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="x3Button">
        <property name="text">
-        <string>3x</string>
+        <string>3 persons</string>
        </property>
       </widget>
      </item>

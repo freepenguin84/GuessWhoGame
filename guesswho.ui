@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1038</width>
-    <height>742</height>
+    <width>1000</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,21 @@
     <bool>true</bool>
    </property>
    <layout class="QVBoxLayout" name="centralWidgetLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <layout class="QHBoxLayout" name="imageLayout">
       <item>
@@ -33,8 +48,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1006</width>
-           <height>531</height>
+           <width>980</width>
+           <height>582</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="scrollAreaLayout">
@@ -110,35 +125,24 @@
          <item>
           <widget class="QPushButton" name="nextButton">
            <property name="text">
-            <string>Next</string>
+            <string>Next image</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="revealButton">
            <property name="text">
-            <string>Reveal!</string>
+            <string>Reveal image</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="startButton">
+          <widget class="QPushButton" name="toggleShowButton">
            <property name="text">
-            <string>Start</string>
+            <string>Start Slideshow</string>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="stopButton">
-           <property name="text">
-            <string>Stop</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="jumpToButton">
-           <property name="text">
-            <string>Jump to:</string>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -154,21 +158,20 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1038</width>
+     <width>1000</width>
      <height>30</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuDatei">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Da&amp;tei</string>
+     <string>Fi&amp;le</string>
     </property>
     <addaction name="actionNewGame"/>
     <addaction name="actionSettings"/>
     <addaction name="actionToggleControls"/>
    </widget>
-   <addaction name="menuDatei"/>
+   <addaction name="menuFile"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNewGame">
    <property name="text">
     <string>&amp;New Game</string>

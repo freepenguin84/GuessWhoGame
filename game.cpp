@@ -2,6 +2,7 @@
 #include <QPixmap>
 #include <QImageReader>
 #include <QDialog>
+#include <QPushButton>
 #include "pixelator.h"
 #include "player.h"
 #include "guessdialog.h"
@@ -33,6 +34,8 @@ void Game::showNextPixelated()
         QPixmap pixelated = gw::Pixelator::doPixelate(currentImage, config.getSizes()[pixelCountDown--]);
         emit imageChanged(pixelated);
     } else {
+        pixelCountDown = 0;
+        currentScore = 0;
         revealImage();
     }
 }
